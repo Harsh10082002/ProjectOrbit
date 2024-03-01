@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("allLinks.ejs"); %>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <%- include("navbar.ejs"); %>
+    <% signUp %>
+    <% exist %>
+
+    <section id="contact" class="contact-me">
+        <div class="row contact-innerMain">
+            
+            <h1><%= signUp ? 'sign up':'login' %></h1>
+            <form action="<%= signUp ? '/signupData':'/loginData' %>" method="post">
+                <div class="formcontainer">
+                <div class="container">
+
+                    <% if(signUp){ %>
+                        <label for="uname"><strong>Name</strong></label>
+                        <input type="text" placeholder="enter your name" name="name" >
+                    <% } %>
+                    <label for="uname"><strong>Email</strong></label>
+                    <input type="email" value="sun@gmail.com" name="email" >
+                    
+                    <% if(exist){ %>
+                        <p style="color: red;"><strong>this email already exist</strong></p>
+                    <% } %>
+                    <label for="uname"><strong>Password</strong></label>
+                    <input type="password" value="sun" name="password">
+
+                </div>
+
+                <button type="submit"><%= signUp ? 'sign up':'login' %></button>
+                </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+</body>
+</html>

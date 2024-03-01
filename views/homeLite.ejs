@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("allLinks.ejs"); %>
+    <%- include("navbar.ejs"); %>
+    
+</head>
+
+<body>
+
+    
+    <% getCookie %>
+    <div >
+        <div class="" style="background-color: rgb(240, 240, 149); padding: 10% 15%;">
+            
+            <h2>Hi,</h2>
+            <h2 class="col col-lg-4">Welcome to Project Management</h2>
+            <% if(!(getCookie)) { %>
+                <a class="btn btn-lg btn-dark" href="/login">login</a> 
+            <% } %>
+
+        </div>
+    </div>
+
+
+
+    <% if(getCookie) { %>
+        <% total %>
+        <% if(total  == 0) { %>
+            <h1>No Project</h1>
+        <% }else{ %>
+            <h1>All Projects are= </h1>
+
+        <div class="projects">
+            <% data %>
+            <div class="project">
+
+            <% data.forEach((v,index)=> {%>
+               
+                <h1><%= v.ptitle %></h1>
+                <h3><%= v.psubtitle %></h3>
+                <h3><%= v.pid %></h3>   
+                
+                <a href="/dashBoard?projectId=<%= v.pid %>" class="btn btn-dark" style="color: white;">view details</a>
+                <a href="/deleteProject?projectId=<%= v.pid %>" class="btn btn-danger">Delete</a>
+
+                <!-- <a href="/openProject/<%= v.pid %>" class="btn btn-success">view details</a> -->
+                <hr>
+            <% });%>
+
+        </div>
+        <% } %>
+
+    <% } %>
+
+    <%- include("footer.ejs"); %>
+
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("allLinks.ejs"); %>
+    
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <%- include("navbar.ejs") %>
+    <% data %>
+    <% taskData %>
+    <% linkId %>
+    <% allocateId %>
+    <% employesData %>
+    <% allocatedData %>
+    <% done %>
+
+    <% if(linkId == 1 || linkId == undefined){ %>
+
+        <div class="details row">
+            <% data.forEach((val,ind)=>{ %>
+
+                <div class="col col-lg-3 frame1">
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                    </div>
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                    </div>
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                    </div>
+                    <div>
+                        <strong class="sideAnchors">Accounts</strong>
+                        <ul>
+                            <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                            <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                        </ul>
+                    </div>
+                
+                </div>
+            
+                <div class="col col-lg-9 frame2">
+                        <style>
+                            .imgSection {
+                                background: linear-gradient(to bottom, rgba(45, 44, 44, 0.278), rgba(23, 22, 22, 0.678)),
+                                url("data:image/png;base64,<%= val.projectimg %>");
+                                background-position: center;
+
+                                background-repeat: no-repeat;
+                                height: auto;
+                                background-size: cover;
+                                color: white;
+                                padding: 6% 30%;
+                            }
+                        </style>
+                        <div class="imgSection">
+                                <h1 style="text-align: left; padding: 1.2% 0;">
+                                    <%= val.ptitle %>
+                                </h1>
+                                
+
+                                <h3 style="padding: 1.2% 0;">
+                                    <%= val.psubtitle %>
+                                </h3>
+                                <h3 style="padding: 1.2% 0;">1-1-2023 to 6-4-2023 </h3>
+                        </div>
+                        <p class="projectDescription">
+                            <%= val.pdescription %>
+                            <%= val.psubtitle %>
+                        </p>
+                </div>
+            <% }) %>
+        </div>
+
+        <!-- 2 = all Tasks -->
+    <% } else if (linkId == 2) { %>
+        <div class="details row">
+            <% data.forEach((val,ind)=>{ %>
+                <div class="col col-lg-3 frame1">
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                    </div>
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                    </div>
+                    <div>
+                        <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                    </div>
+                    <div>
+                        <strong class="sideAnchors">Accounts</strong>
+                    <ul>
+                        <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                        <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                    </ul>
+                </div>
+                    
+                    <button class="btn btn-lg btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Create Task</button>
+                    <a style="margin: 2%;" class="btn btn-lg btn-danger" href="/deleteAllTasks">Delete all tasks</a>
+
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                        aria-labelledby="offcanvasRightLabel" style="width: 900px;">
+                        <div class="offcanvas-body" style="justify-content: start; margin: 12% 0;">
+                            <form action="taskform?projectId=<%= val.pid %>" method="post">
+                                <h1 id="">Create a new task</h1>
+                                <div class="formcontainer">
+                                <hr/>
+                                <div class="container">
+                                    <label for="uname"><strong>Task Name</strong></label>
+                                    <input type="text" placeholder="Enter Username" name="tn" required>
+                                    <label for="psw"><strong>Task Description</strong></label>
+                                    <textarea id="" cols="10" rows="5" name="tdesc"></textarea>
+                                </div>
+
+                                <button type="submit">Add Task</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-lg-9 frame2" id="tasksPage">
+                    <!-- <h1 style="padding: 5%; font-size: 2.2rem;">All Tasks of <%= val.ptitle %> Project.</h1> -->
+
+                    <% taskData.forEach((value,i)=>{ %>
+
+                        <div class="" id="row1">
+                                <div id="alltasks" class="card" style="width: 20rem; height: 16rem; overflow-y: scroll;">
+                                    <div class="card-body">
+
+                                      <h5 class="card-title"><%= value.taskName %></h5>
+                                      <p class="card-text"><%= value.taskDesc %></p>
+                                      <% data.forEach((val,ind)=>{ %>
+
+                                      <a href="/delete1task?taskId=<%= value.taskId %>&projId=<%= val.pid %>&deleteTask=<%= 1 %>" class="btn btn-outline-danger">delete</a>
+                                    
+                                      
+                                      <% }) %>
+
+                                      <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                          Status of Task
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                          <li><a class="dropdown-item active" href="#">for Later</a></li>
+                                          <li><a class="dropdown-item" href="/dashBoard?projectId=<%= val.pid %>&linkId=2&task_completed=1&taskId=<%= value.taskId %>">completed</a></li>
+                                        </ul>
+                                      </div>
+
+                                    <% if (value.completed == 1){ %>
+                                        <h1>task Completed = hey</h1>
+                                    <% } %>
+                                    </div>
+                                </div>
+                        </div>
+                    <% }) %>
+
+                </div>
+            <% }) %>
+        </div>
+
+    <!-- 3.1 = add Employes -->
+    <% } else if (linkId == 3.1) { %>
+
+        <% data.forEach((val,ind)=>{ %>
+            <div class="details row">
+                    <div class="col col-lg-3 frame1">
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                        </div>
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                        </div>
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                        </div>
+                        <div>
+                            <strong class="sideAnchors">Accounts</strong>
+                            <ul>
+                                <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                                <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="col col-lg-9 frame2">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          </div>   
+                    </div>
+            </div>
+        <% }) %>
+
+        <!-- 2 = view employes -->
+    <% } else if (linkId == 3.2) { %>
+
+            <% data.forEach((val,ind)=>{ %>
+                <div class="details row">
+                        <div class="col col-lg-3 frame1">
+                            <div>
+                                <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                            </div>
+                            <div>
+                                <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                            </div>
+                            <div>
+                                <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                            </div>
+                            <div>
+                                <strong class="sideAnchors">Accounts</strong>
+                                <ul>
+                                    <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                                    <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <div class="col col-lg-9 frame2">
+
+                            <h1 style="padding: 5%; font-size: 2.2rem;">All Employes for <%= val.ptitle %> Project.</h1>
+                            <hr>
+                            <!-- <a href="" style="margin: 2% 0 3% 2%;" class="btn btn-dark">+ new employe</a> -->
+
+                            <button class="btn btn-dark" style="margin: 2% 0 3% 2%;" 
+                            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                            aria-controls="offcanvasRight">+ new employe</button>
+
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                                aria-labelledby="offcanvasRightLabel" style="width: 900px;">
+                                <div class="offcanvas-body" style="justify-content: start; margin: 12% 0;">
+                                    <form action="/addEmploye?projectId=<%= val.pid %>" method="post">
+                                        <h1 id="">a new employe</h1>
+                                        <div class="formcontainer">
+                                        <hr/>
+                                        <div class="container">
+                                            <label for="uname"><strong>employe Name</strong></label>
+                                            <input type="text" placeholder="Enter Username" name="en" >
+
+                                            <label for="uname"><strong>employe Last Name</strong></label>
+                                            <input type="text" placeholder="Enter Username" name="eln">
+
+                                            <label for="uname"><strong>employe email</strong></label>
+                                            <input type="text" placeholder="Enter Username" name="ee" >
+                                        </div>
+
+                                        <button type="submit">Add Task</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                            <% deleted = true %>
+                            <% employesData.forEach((employe,i)=>{ %>
+            
+                                <tr>
+                                    <th scope="row"><%= employe.eid %></th>
+                                    <td><%= employe.ename %></td>
+                                    <td><%= employe.elname %></td>
+                                    <td><%= employe.eemail %></td>
+                                    <td>
+                                        <strong><a href="/delete1task?empId=<%= employe.eid %>&projId=<%= val.pid %>&deleted=<%= 1 %>">delete</a></strong> 
+                                        <strong><a href="">edit</a></strong>
+
+                                    </td>
+                                </tr>
+                            <% }) %>
+                                
+                                </tbody>
+                            </table>    
+                        </div>
+                </div>
+            <% }) %>
+
+    <!--3 = allocate employes -->
+    <% } else if (linkId == 3.3) { %>
+        
+        <% data.forEach((val,ind)=>{ %>
+            <div class="details row">
+                    <div class="col col-lg-3 frame1">
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                        </div>
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                        </div>
+                        <div>
+                            <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                        </div>
+                        <div>
+                            <strong class="sideAnchors">Accounts</strong>
+                            <ul>
+                                <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                                <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="col col-lg-9 frame2">
+
+                        <h1 style="padding: 5%; font-size: 2.2rem;">Alocation of Employes for <%= val.ptitle %> Project.</h1>
+                        <hr>
+                        <form style="padding: 4%;" action="/allocation?projectId=<%= val.pid %>" method="post">
+                            <h1 id="">a new employe</h1>
+                            <div class="formcontainer">
+                            <hr/>
+                            <div class="container">
+                                <label for="uname"><strong>employe Name</strong></label>
+                                <input type="text" placeholder="Enter Username" name="employeName" >
+
+                                <label for="uname"><strong>task name</strong></label>
+                                <input type="text" placeholder="Enter Username" name="taskName">
+
+                            </div>
+
+                            <button type="submit">Allocate Task</button>
+                            </div>
+                        </form>
+
+                        <div style="padding: 3% 3% 0 3%;">
+                            <table class="table">
+                                
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">S.NO</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">task</th>
+                                        <th scope="col"></th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                
+                                <% sno = 1 %>
+                                <% allocatedData.forEach((allocationValue,ind)=>{ %>
+                                
+                                <tr>
+                                    <th scope="row"><%= sno %></th>
+                                    <td><%= allocationValue.ename %></td>
+                                    <td><%= allocationValue.elname %></td>
+                                    <td><%= allocationValue.eemail %></td>
+                                    <td><%= allocationValue.taskName %></td>
+                                    <td>
+                                        <a href="/delete1task?empId=<%= allocationValue.eid %>&projId=<%= allocationValue.pid %>&deleteAllocatedEmp=<%= 1 %>">delete</a> 
+                                    </td> 
+                                </tr>
+                                <% sno += 1 %>
+                                <% }) %>
+
+                                </tbody>
+                            </table>    
+
+                        </div>
+                    </div>
+            </div>
+        <% }) %>
+<!-- 5 profile -->
+    <% } else if(linkId == 5){ %>
+        <div class="details row">
+        <% data.forEach((val,ind)=>{ %>
+
+            <div class="col col-lg-3 frame1">
+                <div>
+                    <a href="/dashBoard?projectId=<%= val.pid %>&linkId=5" class="sideAnchors"><strong>Profile</strong></a>
+                </div>
+                <div>
+                    <a href="/dashBoard?projectId=<%= val.pid %>&linkId=1" class="sideAnchors"><strong>Dashboard</strong></a>
+                </div>
+                <div>
+                    <a href="/dashBoard?projectId=<%= val.pid %>&linkId=2" class="sideAnchors"><strong>All Tasks</strong></a>
+                </div>
+                <div>
+                    <strong class="sideAnchors">Accounts</strong>
+                    <ul>
+                        <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.2" class="sideAnchors"><strong>view employes</strong></a></li>
+                        <li><a href="/dashBoard?projectId=<%= val.pid %>&linkId=3.3" class="sideAnchors"><strong>allocation</strong></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="frame2">
+                
+            </div>
+
+        <% }) %>
+    </div>
+    <% } %>
+
+
+   </body>
+</html>

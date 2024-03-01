@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.image{
+    height: 70vh;
+    background: linear-gradient(rgba(28, 27, 27, 0.5),rgba(97, 94, 94, 0)),url("https://plus.unsplash.com/premium_photo-1661573322713-0935eae5f6a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* opacity: 0.25; */
+}
+.heading{
+    color: rgb(10, 10, 10);
+    text-align: center;
+    line-height: 580px;
+}
+.projects{
+    /* background-color: blueviolet; */
+    padding: 5% 0;
+}
+.project{
+    margin: 2% 25% 3% 30%;
+}
+.projects a{
+    border: none;
+    color: black;
+}
+
+
+
+#col1{
+    background-color: darkcyan;
+}
+
+
+.allLinks ul{
+    display: flex;
+}
+.allLinks ul a{
+    background-color: black;
+    
+    font-size: 1.3rem;
+    color: white;
+    margin: 0 8%;
+
+}
+footer{
+    background-color: brown;
+    text-align: center;
+    padding: 4%;
+    color: whitesmoke;
+}
+
+.contact-me{
+    margin:3% 0;
+}
+.contact-innerMain{
+    background-color: whitesmoke;
+    width: fit-content;
+    position: relative;
+    left: 31%;
+    top: 5%;
+    padding: 2%;
+    border: 1px solid rgb(191, 187, 187);
+    border-radius: 5px;
+}
+.contact-innerMain label{
+    /* padding: 10px 0; */
+    line-height: 2.4em;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.contact-innerMain input{
+    width: 500px;
+    height: 39px;
+    border: 1px solid rgb(191, 187, 187);
+    border-radius: 5px;
+}
+.contact-innerMain textarea{
+    width: 500px;
+    height: 120px;
+    border: 1px solid rgb(191, 187, 187);
+    border-radius: 5px;
+}
+.contact-innerMain button{
+    margin: 4% 0;
+    width: 500px;
+    
+}

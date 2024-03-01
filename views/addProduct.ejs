@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("allLinks.ejs"); %>
+
+</head>
+<body>
+    <%- include("navbar.ejs"); %>
+    
+    <section id="contact" class="contact-me">
+
+        <div class="row contact-innerMain">
+            <form action="/addprojectData" enctype="multipart/form-data" method="post">
+
+                <label for="">Title</label><br>
+                <input type="text" name="title" value="Title Name"><br>
+
+                <label for="">Sub Title</label><br>
+                <input type="text" value="web dev" name="subtitle" id="name"><br>
+
+                <!-- <form action="/profile" enctype="multipart/form-data" method="post"> -->
+
+                <label for="">Select Image</label><br>
+                <input type="file" name="imageFile" id=""><br>
+
+                <!-- </form> -->
+                
+                <label for="">Description</label><br>
+                <textarea name="description" ></textarea><br>
+
+                <input type="submit">
+                <!-- <button type="submit"  class="btn btn-dark" >Add Project</button> -->
+            </form>
+        </div>
+
+    </section>
+
+</body>
+</html>
